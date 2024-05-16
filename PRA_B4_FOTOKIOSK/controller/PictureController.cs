@@ -26,19 +26,28 @@ namespace PRA_B4_FOTOKIOSK.controller
             // Initializeer de lijst met fotos
             // WAARSCHUWING. ZONDER FILTER LAADT DIT ALLES!
             // foreach is een for-loop die door een array loopt
+
+            var now = DateTime.Now;
+            int day = (int)now.DayOfWeek;
             foreach (string dir in Directory.GetDirectories(@"../../../fotos"))
             {
                 /**
                  * dir string is de map waar de fotos in staan. Bijvoorbeeld:
                  * \fotos\0_Zondag
                  */
-                foreach (string file in Directory.GetFiles(dir))
+
+                int dayIndex = int.Parse(dir[15].ToString());
+                if (day == dayIndex)
                 {
-                    /**
-                     * file string is de file van de foto. Bijvoorbeeld:
-                     * \fotos\0_Zondag\10_05_30_id8824.jpg
-                     */
-                    PicturesToDisplay.Add(new KioskPhoto() { Id = 0, Source = file });
+                    foreach (string file in Directory.GetFiles(dir))
+                    {
+                        /**
+                         * file string is de file van de foto. Bijvoorbeeld:
+                         * \fotos\0_Zondag\10_05_30_id8824.jpg
+                         */
+
+                        PicturesToDisplay.Add(new KioskPhoto() { Id = 0, Source = file });
+                    }
                 }
             }
 
@@ -49,7 +58,7 @@ namespace PRA_B4_FOTOKIOSK.controller
         // Wordt uitgevoerd wanneer er op de Refresh knop is geklikt
         public void RefreshButtonClick()
         {
-
+             
         }
 
     }
