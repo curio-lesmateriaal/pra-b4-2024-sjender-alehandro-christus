@@ -2,6 +2,7 @@
 using PRA_B4_FOTOKIOSK.models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -29,6 +30,8 @@ namespace PRA_B4_FOTOKIOSK.controller
 
             var now = DateTime.Now;
             int day = (int)now.DayOfWeek;
+
+
             foreach (string dir in Directory.GetDirectories(@"../../../fotos"))
             {
                 /**
@@ -37,6 +40,7 @@ namespace PRA_B4_FOTOKIOSK.controller
                  */
 
                 int dayIndex = int.Parse(dir[15].ToString());
+                
                 if (day == dayIndex)
                 {
                     foreach (string file in Directory.GetFiles(dir))
@@ -45,8 +49,17 @@ namespace PRA_B4_FOTOKIOSK.controller
                          * file string is de file van de foto. Bijvoorbeeld:
                          * \fotos\0_Zondag\10_05_30_id8824.jpg
                          */
+                        string[] words = file.Split(@"\")[2].Split("_");
+                        DateTime fotoDate = new DateTime(now.Year, now.Month, now.Day, int.Parse(words[0]), int.Parse(words[1]), int.Parse(words[2]));
+                        Debug.WriteLine(now.Subtract(fotoDate).TotalMinutes);
 
-                        PicturesToDisplay.Add(new KioskPhoto() { Id = 0, Source = file });
+
+                        if(now.Subtract(fotoDate).TotalMinutes < 30 && now.Subtract(fotoDate).TotalMinutes > 2)
+                        {
+                            PicturesToDisplay.Add(new KioskPhoto() { Id = 0, Source = file });
+
+                        }
+
                     }
                 }
             }
