@@ -17,16 +17,25 @@ namespace PRA_B4_FOTOKIOSK.controller
         public void Start()
         {
             // Stel de prijslijst in aan de rechter kant.
-            ShopManager.SetShopPriceList("Prijzen:\nFoto 10x15: €2.55");
+            ShopManager.SetShopPriceList("Prijzen:\n");
 
             // Stel de bon in onderaan het scherm
             ShopManager.SetShopReceipt("Eindbedrag\n€");
 
             // Vul de productlijst met producten
-            ShopManager.Products.Add(new KioskProduct() { Name = "Foto 10x15" });
-            
+            ShopManager.Products.Add(new KioskProduct() { Name = "Foto 10x15", Prijs = 2.55f});
+            ShopManager.Products.Add(new KioskProduct() { Name = "Foto 20x30", Prijs = 4.95f });
+            ShopManager.Products.Add(new KioskProduct() { Name = "Mok met Foto", Prijs = 9.95f});
+            ShopManager.Products.Add(new KioskProduct() { Name = "Sleutelhanger met foto", Prijs = 6.12f});
+            ShopManager.Products.Add(new KioskProduct() { Name = "T-shirt met foto", Prijs = 11.99f});
+
             // Update dropdown met producten
             ShopManager.UpdateDropDownProducts();
+
+            foreach (KioskProduct product in ShopManager.Products)
+            {
+                ShopManager.AddShopPriceList(product.Name +": " +" $" + product.Prijs + "\n");
+            }
         }
 
         // Wordt uitgevoerd wanneer er op de Toevoegen knop is geklikt
