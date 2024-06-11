@@ -13,6 +13,8 @@ namespace PRA_B4_FOTOKIOSK.controller
     {
 
         public static Home Window { get; set; }
+        public static float eindbedrag { get; set; }
+
 
         public void Start()
         {
@@ -41,7 +43,8 @@ namespace PRA_B4_FOTOKIOSK.controller
         // Wordt uitgevoerd wanneer er op de Toevoegen knop is geklikt
         public void AddButtonClick()
         {
-            
+            eindbedrag += ShopManager.GetSelectedProduct().Prijs;
+            ShopManager.SetShopReceipt("Eindbedrag\n" + eindbedrag + "$");
         }
 
         // Wordt uitgevoerd wanneer er op de Resetten knop is geklikt
@@ -53,9 +56,6 @@ namespace PRA_B4_FOTOKIOSK.controller
         // Wordt uitgevoerd wanneer er op de Save knop is geklikt
         public void SaveButtonClick()
         {
-            string bonInhoud = ShopManager.GetShopReceipt();
-            string bestandsnaam = "Bon_" + DateTime.Now.ToString("yyyyMMdd_HHmmss");
-            ShopManager.SaveReceiptToFile(bonInhoud, bestandsnaam);
         }
 
     }
