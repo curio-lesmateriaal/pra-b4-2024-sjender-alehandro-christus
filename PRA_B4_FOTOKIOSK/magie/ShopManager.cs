@@ -83,5 +83,22 @@ namespace PRA_B4_FOTOKIOSK.magie
             }
             return id;
         }
+        public static void SaveReceiptToFile(string bonInhoud, string bestandsnaam)
+        {
+            try
+            {
+                string pad = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+                string volledigPad = Path.Combine(pad, bestandsnaam + ".txt");
+
+                File.WriteAllText(volledigPad, bonInhoud);
+
+                MessageBox.Show("De bon is succesvol opgeslagen als tekstbestand.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Er is een fout opgetreden bij het opslaan van de bon: {ex.Message}");
+            }
+        }
     }
 }
