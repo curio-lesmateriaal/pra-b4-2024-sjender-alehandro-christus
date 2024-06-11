@@ -15,6 +15,8 @@ namespace PRA_B4_FOTOKIOSK.controller
         public static Home Window { get; set; }
         public static float eindbedrag { get; set; }
 
+        public static List<Orderdproduct> orders = new List<Orderdproduct>();
+
 
         public void Start()
         {
@@ -44,7 +46,16 @@ namespace PRA_B4_FOTOKIOSK.controller
         public void AddButtonClick()
         {
             eindbedrag += ShopManager.GetSelectedProduct().Prijs;
-            ShopManager.SetShopReceipt("Eindbedrag\n" + eindbedrag + "$");
+            ShopManager.SetShopReceipt("Eindbedrag\n" + eindbedrag + "$" + " \n");
+
+            
+            orders.Add(new Orderdproduct() { Fotonummer = ShopManager.GetFotoId(), ProductNaam = ShopManager.GetSelectedProduct().ToString(), Aantal = ShopManager.GetAmount(), Totaalprijs = ShopManager.GetSelectedProduct().Prijs *= (float)ShopManager.GetAmount() });
+
+
+            foreach (Orderdproduct pro in orders)
+            {
+                ShopManager.AddShopReceipt(ShopManager.GetSelectedProduct().Name + " x" + ShopManager.GetAmount() + " $" + pro.Totaalprijs + "\n");
+            }
         }
 
         // Wordt uitgevoerd wanneer er op de Resetten knop is geklikt
