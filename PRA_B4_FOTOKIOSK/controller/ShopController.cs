@@ -49,12 +49,12 @@ namespace PRA_B4_FOTOKIOSK.controller
             ShopManager.SetShopReceipt("Eindbedrag\n" + eindbedrag + "$" + " \n");
 
             
-            orders.Add(new Orderdproduct() { Fotonummer = ShopManager.GetFotoId(), ProductNaam = ShopManager.GetSelectedProduct().ToString(), Aantal = ShopManager.GetAmount(), Totaalprijs = ShopManager.GetSelectedProduct().Prijs *= (float)ShopManager.GetAmount() });
+            orders.Add(new Orderdproduct() { Fotonummer = ShopManager.GetFotoId(), ProductNaam = ShopManager.GetSelectedProduct().Name, Aantal = ShopManager.GetAmount(), Totaalprijs = ShopManager.GetSelectedProduct().Prijs * (float)ShopManager.GetAmount() });
 
 
             foreach (Orderdproduct pro in orders)
             {
-                ShopManager.AddShopReceipt(ShopManager.GetSelectedProduct().Name + " x" + ShopManager.GetAmount() + " $" + pro.Totaalprijs + "\n");
+                ShopManager.AddShopReceipt(pro.ProductNaam + " x" + pro.Aantal + " $" + pro.Totaalprijs + "\n");
             }
         }
 
