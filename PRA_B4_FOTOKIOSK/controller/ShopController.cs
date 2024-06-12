@@ -70,7 +70,8 @@ namespace PRA_B4_FOTOKIOSK.controller
             string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             string bestandspad = Path.Combine(desktopPath, "bon.txt");
             string bonInhoud = GenereerBonInhoud();
-     
+            File.WriteAllText(bestandspad, bonInhoud);
+
         }
         public string GenereerBonInhoud()
         {
