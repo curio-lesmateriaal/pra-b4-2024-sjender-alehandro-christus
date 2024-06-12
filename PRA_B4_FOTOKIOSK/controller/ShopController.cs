@@ -67,7 +67,23 @@ namespace PRA_B4_FOTOKIOSK.controller
         // Wordt uitgevoerd wanneer er op de Save knop is geklikt
         public void SaveButtonClick()
         {
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string bestandspad = Path.Combine(desktopPath, "bon.txt");
+            string bonInhoud = GenereerBonInhoud();
+     
         }
-
+        public string GenereerBonInhoud()
+        {
+            StringBuilder bonInhoud = new StringBuilder();
+            bonInhoud.AppendLine("Bon");
+            bonInhoud.AppendLine("-----------------");
+            foreach (Orderdproduct pro in orders)
+            {
+                bonInhoud.AppendLine($"{pro.ProductNaam} x{pro.Aantal}: ${pro.Totaalprijs}");
+            }
+            bonInhoud.AppendLine("-----------------");
+            bonInhoud.AppendLine($"Totaal: ${eindbedrag}");
+            return bonInhoud.ToString();
+        }
     }
 }
