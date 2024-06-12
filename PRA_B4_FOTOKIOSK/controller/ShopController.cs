@@ -61,7 +61,9 @@ namespace PRA_B4_FOTOKIOSK.controller
         // Wordt uitgevoerd wanneer er op de Resetten knop is geklikt
         public void ResetButtonClick()
         {
-
+            orders.Clear();
+            eindbedrag = 0;
+            ShopManager.SetShopReceipt("Eindbedrag\n" + eindbedrag + "$" + " \n");
         }
 
         // Wordt uitgevoerd wanneer er op de Save knop is geklikt
@@ -70,6 +72,7 @@ namespace PRA_B4_FOTOKIOSK.controller
             string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             string bestandspad = Path.Combine(desktopPath, "bon.txt");
             string bonInhoud = GenereerBonInhoud();
+
             File.WriteAllText(bestandspad, bonInhoud);
 
         }
